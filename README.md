@@ -97,23 +97,23 @@ A API possui as seguintes rotas principais:
 - As respostas seguem o padrão JSON.
 - Para mais detalhes sobre os parâmetros e exemplos de resposta, consulte a documentação das rotas no código-fonte.
 
-<!-- Crie uma seção contendo um diagrama mermaid com o fluxo mais importante da rota -->
-## Fluxo Principal da Aplicação
+<!-- Crie uma seção contendo um diagrama mermaid com o fluxo mais importante da api -->
+## Diagrama das Tabelas do Banco de Dados
 
 ```mermaid
-flowchart TD
-  A[Usuário envia requisição de cadastro ou login] --> B{Cadastro ou Login?}
-  B -- Cadastro --> C[POST /users]
-  C --> D[Usuário criado no banco de dados]
-  D --> E[Resposta de sucesso]
-  B -- Login --> F[POST /sessions]
-  F --> G[Validação de credenciais]
-  G -- Válido --> H[Geração de token JWT]
-  H --> I[Resposta com token JWT]
-  G -- Inválido --> J[Resposta de erro]
-  I --> K[Usuário acessa rotas protegidas]
-  K --> L[Envia token JWT no header]
-  L --> M[Validação do token]
-  M -- Válido --> N[Acesso permitido às rotas (ex: /entities)]
-  M -- Inválido --> O[Resposta de erro de autenticação]
+  USERS {
+    int id PK
+    string name
+    string email
+    string password
+    datetime created_at
+  }
+  
+  ENTITIES {
+    int id PK
+    string name
+    string description
+    int user_id FK
+    datetime created_at
+  }
 ```
