@@ -15,6 +15,34 @@
       "when": 1755613337595,
       "tag": "0001_mysterious_kronos",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1755699227506,
+      "tag": "0002_brave_landau",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1755699382504,
+      "tag": "0003_shocking_famine",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1755771273032,
+      "tag": "0004_fantastic_timeslip",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1755775007504,
+      "tag": "0005_luxuriant_pepper_potts",
+      "breakpoints": true
     }
   ]
 }
