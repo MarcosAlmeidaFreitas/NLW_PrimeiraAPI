@@ -6,12 +6,15 @@ import z from 'zod'
 import { db } from '../database/client.ts'
 import { courses, enrollments } from '../database/schema.ts'
 import { HTTP_Status_Code } from './HTTP_Status_Code.ts'
+import { checkRequestJWT } from './hookes/check-request-jwt.ts'
+import { checkUserRole } from './hookes/check-user-role.ts'
 
 export const getCoursesRoute: FastifyPluginAsyncZod = async (server) => {
   // biome-ignore lint/correctness/noUnusedFunctionParameters: <explanation>
   await server.get(
     '/courses',
     {
+      preHandler: [checkRequestJWT, checkUserRole("manager")],
       schema: {
         tags: ['Courses'],
         summary: 'Get all courses',
@@ -30,7 +33,7 @@ export const getCoursesRoute: FastifyPluginAsyncZod = async (server) => {
                 id: z.uuid(),
                 title: z.string(),
                 description: z.string().nullable(),
-                enrollments: z.number()
+                enrollments: z.number(),
               })
             ),
             totalCourses: z.number(),
@@ -48,7 +51,7 @@ export const getCoursesRoute: FastifyPluginAsyncZod = async (server) => {
             id: courses.id,
             title: courses.title,
             description: courses.description,
-            enrollments: count(enrollments.id)
+            enrollments: count(enrollments.id),
           })
           .from(courses)
           .leftJoin(enrollments, eq(enrollments.coursesId, courses.id))

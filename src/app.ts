@@ -12,6 +12,7 @@ import { createCourseRoute } from './routes/create-courses.ts'
 import { getCourseByIdRoute } from './routes/get-course-by-id.ts'
 import { getCoursesRoute } from './routes/get-courses.ts'
 import { HTTP_Status_Code } from './routes/HTTP_Status_Code.ts'
+import { loginRoute } from './routes/login.ts'
 
 // Nesse servidor está sendo utilizado o pretty para gerar logs mais legíveis e o zod para validação de schemas
 const server = fastify({
@@ -65,5 +66,6 @@ server.get('/health', (request, reply) => {
 server.register(getCoursesRoute)
 server.register(createCourseRoute)
 server.register(getCourseByIdRoute)
+server.register(loginRoute)
 
 export { server }

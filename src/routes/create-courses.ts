@@ -3,6 +3,8 @@ import { z } from 'zod'
 import { db } from '../database/client.ts'
 import { courses } from '../database/schema.ts'
 import { HTTP_Status_Code } from './HTTP_Status_Code.ts'
+import { checkRequestJWT } from './hookes/check-request-jwt.ts'
+import { checkUserRole } from './hookes/check-user-role.ts'
 
 const MinimalCaractereTitle = 5
 
@@ -11,11 +13,13 @@ export const createCourseRoute: FastifyPluginAsyncZod = async (server) => {
   await server.post(
     '/courses',
     {
+      preHandler: [checkRequestJWT, checkUserRole('manager')],
       schema: {
         tags: ['Courses'],
         summary: 'Create a new course',
-        description: 'Essa rota recebe um titulo e uma descrição para criar um curso', 
-        
+        description:
+          'Essa rota recebe um titulo e uma descrição para criar um curso',
+
         body: z.object({
           title: z
             .string()

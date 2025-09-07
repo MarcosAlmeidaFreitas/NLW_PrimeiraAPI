@@ -1,3 +1,4 @@
+// agente separa o server e o app para utilizar as bibliotecas de test
 import { server } from "./app.ts"
 
 const PORT = 3333

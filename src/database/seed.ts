@@ -2,15 +2,17 @@
 import { db } from "./client.ts"
 import { courses, enrollments, users } from "./schema.ts"
 import { fakerPT_BR as faker} from '@faker-js/faker'
+import { hash } from 'argon2'
 
 async function seed() {
   const usersInsert = await db.insert(users).values([
-    {name: faker.person.fullName(), email: faker.internet.email()},
-    {name: faker.person.fullName(), email: faker.internet.email()},
-    {name: faker.person.fullName(), email: faker.internet.email()},
-    {name: faker.person.fullName(), email: faker.internet.email()},
-    {name: faker.person.fullName(), email: faker.internet.email()},
-    {name: faker.person.fullName(), email: faker.internet.email()},
+    {name: faker.person.fullName(), email: faker.internet.email().toLocaleLowerCase(), role: "student", password: await hash('123456') },
+    {name: faker.person.fullName(), email: faker.internet.email().toLocaleLowerCase(), role: "student", password: await hash('654321') },
+    {name: faker.person.fullName(), email: faker.internet.email().toLocaleLowerCase(), role: "student", password: await hash('312232') },
+    {name: faker.person.fullName(), email: faker.internet.email().toLocaleLowerCase(), role: "student", password: await hash('211204') },
+    {name: faker.person.fullName(), email: faker.internet.email().toLocaleLowerCase(), role: "student", password: await hash('323335') },
+    {name: faker.person.fullName(), email: faker.internet.email().toLocaleLowerCase(), role: "student", password: await hash('323333') },
+    {name: 'Manoel Pereira', email: 'manoelpereira@gmail.com', role: "manager", password: await hash('312131') },
   ]).returning()
 
   const coursesInsert = await db.insert(courses).values([

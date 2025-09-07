@@ -1,0 +1,12 @@
+/** biome-ignore-all lint/nursery/useConsistentTypeDefinitions: <explanation> */
+// biome-ignore lint/correctness/noUnusedImports: <explanation>
+import fastify from 'fastify'
+
+declare module 'fastify' {
+  export interface FastifyRequest {
+    user?: {
+      sub: string
+      role: 'student' | 'manager'
+    }
+  }
+}

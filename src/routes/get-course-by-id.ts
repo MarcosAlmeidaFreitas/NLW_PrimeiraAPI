@@ -4,12 +4,17 @@ import z from 'zod'
 import { db } from '../database/client.ts'
 import { courses } from '../database/schema.ts'
 import { HTTP_Status_Code } from './HTTP_Status_Code.ts'
+import { checkRequestJWT } from './hookes/check-request-jwt.ts'
+//import { getAuthenticatedUserFromRequest } from '../utils/get-authenticated-user-from-request.ts'
 
 export const getCourseByIdRoute: FastifyPluginAsyncZod = async (server) => {
   // biome-ignore lint/correctness/noUnusedFunctionParameters: <explanation>
   await server.get(
     '/courses/:id',
     {
+      preHandler: [
+        checkRequestJWT
+      ], 
       schema: {
         tags: ['Courses'],
         summary: 'Get course by ID',
@@ -41,6 +46,8 @@ export const getCourseByIdRoute: FastifyPluginAsyncZod = async (server) => {
 
       // const params = request.params as Params
       // const courseId = params.id
+
+      //const user = getAuthenticatedUserFromRequest(request)
 
       const courseId = request.params.id
       const courseResult = await db
