@@ -1,4 +1,4 @@
-# NWL Primeira API
+# NLW Primeira API
 
 Este projeto é uma API desenvolvida durante a trilha Node.js da Rocketseat, com o objetivo de praticar conceitos fundamentais do desenvolvimento backend utilizando Node.js.
 
